@@ -53,10 +53,16 @@ export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
 
 ### Added by the Heroku Toolbelt
 export PATH="$PATH:/usr/local/heroku/bin"
-#alias vim='/Applications/MacVim.app/Contents/MacOS/MacVim'
-#alias sub='/usr/local/bin/sublime'
+
 
 PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
 export PATH="/usr/local/sbin:$PATH"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home
+export ANDROID_HOME=/Users/edo/Library/Android/sdk
+eval $(thefuck --alias)
+
+export PATH=${JAVA_HOME}/bin:~/Library/Python/2.7/bin:$PATH
+
