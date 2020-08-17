@@ -1,7 +1,6 @@
+ZSH_DISABLE_COMPFIX=true
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
-
-#export EDITOR=sublime
 
 #source ~/.bin/tmuxinator.zsh
 
@@ -62,7 +61,6 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home
 export ANDROID_HOME=/Users/edo/Library/Android/sdk
-eval $(thefuck --alias)
 
 export PATH=${JAVA_HOME}/bin:~/Library/Python/2.7/bin:$PATH
 
