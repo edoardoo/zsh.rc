@@ -1,66 +1,65 @@
-ZSH_DISABLE_COMPFIX=true
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+# zsh config — oh-my-zsh
 
-#source ~/.bin/tmuxinator.zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
+ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="idisagree"
 
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Skip compaudit check (custom completion dirs)
+ZSH_DISABLE_COMPFIX=true
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+# Don't overwrite terminal title
+DISABLE_AUTO_TITLE="true"
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
+# Plugins (available in $ZSH/plugins)
 plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# Customize to your needs...
-export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+# --- Java ---
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
 
-### Added by the Heroku Toolbelt
-export PATH="$PATH:/usr/local/heroku/bin"
+# --- conda ---
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/local/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
+# --- node (nvm, single load) ---
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
-[ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
-export PATH="/usr/local/sbin:$PATH"
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+# --- pnpm ---
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_192.jdk/Contents/Home
-export ANDROID_HOME=/Users/edo/Library/Android/sdk
+# --- local tools ---
+export PATH="$HOME/.local/bin:$HOME/.opencode/bin:$HOME/.lmstudio/bin:$PATH"
 
-export PATH=${JAVA_HOME}/bin:~/Library/Python/2.7/bin:$PATH
+# --- gcloud (still in ~/Downloads — consider moving it out) ---
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then
+  . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"
+fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then
+  . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"
+fi
 
+# --- aliases ---
+alias openscad=/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD
+alias bumbum="ssh edo@bumbum.local"
+alias phone="ssh edo@phone.local"
+alias createProject="~/Gits/createProject.sh"
+alias proton="cd $HOME/Library/CloudStorage/ProtonDrive-EDOARDOO@proton.me-folder/"
